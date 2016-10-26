@@ -223,7 +223,7 @@ class VideoLooper(object):
         while self._running:
             # read trigger state
             if self._trigger_support:
-                self._input_trigger = GPIO.input(17)
+                self._input_trigger = GPIO.input(self._trigger_pin)
             if not self._trigger_support or (self._input_trigger != self._last_trigger):
                 # Load and play a new movie if nothing is playing.
                 if not self._player.is_playing():
