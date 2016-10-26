@@ -72,6 +72,7 @@ class VideoLooper(object):
         if self._config.has_option('video_looper', 'trigger_pin'):
             self._trigger_support = True
             self._trigger_pin = self._config.getint('video_looper', 'trigger_pin')
+            GPIO.setmode(GPIO.BOARD)
             GPIO.setup(self._trigger_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         self._last_trigger  = True
         self._input_trigger = True
@@ -250,6 +251,7 @@ class VideoLooper(object):
         if self._player is not None:
             self._player.stop()
         pygame.quit()
+        GPIO.cleanup()
 
 
 # Main entry point.
