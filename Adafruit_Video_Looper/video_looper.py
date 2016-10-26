@@ -165,7 +165,7 @@ class VideoLooper(object):
         message = 'Found {0} movie{1}.'.format(playlist.length(),
             's' if playlist.length() >= 2 else '')
         if self._trigger_support:
-            message += ' Trigger playback pin {0}'.format(self._trigger_pin)
+            message += ' Trigger playback pin {0}.'.format(self._trigger_pin)
         self._print(message)
         # Do nothing else if the OSD is turned off.
         if not self._osd:
@@ -231,7 +231,10 @@ class VideoLooper(object):
                     if movie is not None:
                         # Start playing the first available movie.
                         self._print('Playing movie: {0}'.format(movie))
-                        self._player.play(movie, loop=playlist.length() == 1, vol = self._sound_vol)
+                        loop = playlist.length() == 1
+                        if self._trigger_support:
+                            loop = False
+                        self._player.play(movie, loop=loop, vol = self._sound_vol)
             # Check for changes in the file search path (like USB drives added)
             # and rebuild the playlist.
             if self._reader.is_changed():
